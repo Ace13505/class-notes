@@ -27,12 +27,54 @@
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     }
 
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
     h1 {
       font-size: 1.5rem;
       font-weight: 700;
-      margin-bottom: 28px;
       color: #111;
     }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    button {
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    #btn-edit {
+      background: #f0f0eb;
+      color: #333;
+    }
+    #btn-edit:hover { background: #e4e4de; }
+
+    #btn-save {
+      background: #111;
+      color: #fff;
+      display: none;
+    }
+    #btn-save:hover { background: #333; }
+    #btn-save:disabled { background: #999; cursor: not-allowed; }
+
+    #btn-cancel {
+      background: #f0f0eb;
+      color: #333;
+      display: none;
+    }
+    #btn-cancel:hover { background: #e4e4de; }
 
     .section {
       margin-bottom: 28px;
@@ -98,16 +140,111 @@
       font-weight: 700;
       font-size: 0.95rem;
     }
+
+    /* Edit mode styles */
+    .editing [contenteditable="true"] {
+      outline: 2px dashed #bbb;
+      border-radius: 4px;
+      padding: 2px 4px;
+      min-width: 20px;
+    }
+    .editing [contenteditable="true"]:focus {
+      outline: 2px solid #111;
+      background: #fafafa;
+    }
+
+    /* Token modal */
+    #token-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    #token-modal.open {
+      display: flex;
+    }
+    .modal-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 32px;
+      max-width: 420px;
+      width: 90%;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    }
+    .modal-box h3 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+    .modal-box p {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .modal-box input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid #ddd;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      font-family: monospace;
+    }
+    .modal-box input:focus {
+      outline: none;
+      border-color: #111;
+    }
+    .modal-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+    .modal-actions button {
+      font-size: 0.85rem;
+      padding: 8px 16px;
+    }
+    #btn-token-confirm {
+      background: #111;
+      color: #fff;
+    }
+    #btn-token-confirm:hover { background: #333; }
+    #btn-token-cancel {
+      background: #f0f0eb;
+      color: #333;
+    }
+
+    #status-msg {
+      font-size: 0.8rem;
+      margin-top: 6px;
+      min-height: 18px;
+      color: #666;
+      text-align: right;
+    }
+    #status-msg.error { color: #c0392b; }
+    #status-msg.success { color: #27ae60; }
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>Class Notes</h1>
+    <div class="card-header">
+      <h1>Class Notes</h1>
+      <div>
+        <div class="btn-group">
+          <button id="btn-edit" onclick="startEdit()">Edit</button>
+          <button id="btn-save" onclick="handleSave()">Save</button>
+          <button id="btn-cancel" onclick="cancelEdit()">Cancel</button>
+        </div>
+        <div id="status-msg"></div>
+      </div>
+    </div>
 
     <div class="section">
       <h2>Schedule</h2>
-      <p>2 classes per week &mdash; Monday &amp; Wednesday, 9:00 &ndash; 11:45 AM</p>
-      <p style="margin-top: 8px; font-size: 0.9rem; color: #666;">
+      <p data-editable>2 classes per week &mdash; Monday &amp; Wednesday, 9:00 &ndash; 11:45 AM</p>
+      <p data-editable style="margin-top: 8px; font-size: 0.9rem; color: #666;">
         The last hour is a group HW forum (counts as attendance).
       </p>
     </div>
@@ -117,35 +254,35 @@
       <ul class="grade-list">
         <li>
           <div class="label">
-            HW Forum (group, in-class)
-            <div class="note">Counts as attendance</div>
+            <span data-editable>HW Forum (group, in-class)</span>
+            <div class="note" data-editable>Counts as attendance</div>
           </div>
-          <span class="pct">20%</span>
+          <span class="pct" data-editable>20%</span>
         </li>
         <li>
-          <div class="label">Weekly Reflection</div>
-          <span class="pct">10%</span>
-        </li>
-        <li>
-          <div class="label">
-            ExpertTA Homework
-            <div class="note">Weekly assignments, one per chapter</div>
-          </div>
-          <span class="pct">20%</span>
+          <div class="label"><span data-editable>Weekly Reflection</span></div>
+          <span class="pct" data-editable>10%</span>
         </li>
         <li>
           <div class="label">
-            Midterm 1
-            <div class="note">July 8 &mdash; in person</div>
+            <span data-editable>ExpertTA Homework</span>
+            <div class="note" data-editable>Weekly assignments, one per chapter</div>
           </div>
-          <span class="pct">25%</span>
+          <span class="pct" data-editable>20%</span>
         </li>
         <li>
           <div class="label">
-            Midterm 2
-            <div class="note">August 5 &mdash; in person</div>
+            <span data-editable>Midterm 1</span>
+            <div class="note" data-editable>July 8 &mdash; in person</div>
           </div>
-          <span class="pct">25%</span>
+          <span class="pct" data-editable>25%</span>
+        </li>
+        <li>
+          <div class="label">
+            <span data-editable>Midterm 2</span>
+            <div class="note" data-editable>August 5 &mdash; in person</div>
+          </div>
+          <span class="pct" data-editable>25%</span>
         </li>
       </ul>
       <div class="total-bar">
@@ -154,5 +291,156 @@
       </div>
     </div>
   </div>
+
+  <!-- GitHub token modal -->
+  <div id="token-modal">
+    <div class="modal-box">
+      <h3>Enter your GitHub token</h3>
+      <p>
+        A personal access token with <strong>repo</strong> scope is needed to save changes.
+        It will be stored only in this browser and never sent anywhere except GitHub.
+      </p>
+      <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
+      <div class="modal-actions">
+        <button id="btn-token-cancel" onclick="closeTokenModal()">Cancel</button>
+        <button id="btn-token-confirm" onclick="confirmToken()">Save &amp; Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const GITHUB_USER = 'Ace13505';
+    const GITHUB_REPO = 'class-notes';
+    const FILE_PATH   = 'index.html';
+    const API_URL     = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
+
+    let originalContents = [];
+    let pendingSave = false;
+
+    function editableEls() {
+      return document.querySelectorAll('[data-editable]');
+    }
+
+    function startEdit() {
+      originalContents = [...editableEls()].map(el => el.innerHTML);
+      editableEls().forEach(el => el.setAttribute('contenteditable', 'true'));
+      document.querySelector('.card').classList.add('editing');
+      document.getElementById('btn-edit').style.display   = 'none';
+      document.getElementById('btn-save').style.display   = 'inline-block';
+      document.getElementById('btn-cancel').style.display = 'inline-block';
+      setStatus('');
+    }
+
+    function cancelEdit() {
+      [...editableEls()].forEach((el, i) => {
+        el.removeAttribute('contenteditable');
+        el.innerHTML = originalContents[i];
+      });
+      document.querySelector('.card').classList.remove('editing');
+      document.getElementById('btn-edit').style.display   = 'inline-block';
+      document.getElementById('btn-save').style.display   = 'none';
+      document.getElementById('btn-cancel').style.display = 'none';
+      setStatus('');
+    }
+
+    function stopEditMode() {
+      editableEls().forEach(el => el.removeAttribute('contenteditable'));
+      document.querySelector('.card').classList.remove('editing');
+      document.getElementById('btn-edit').style.display   = 'inline-block';
+      document.getElementById('btn-save').style.display   = 'none';
+      document.getElementById('btn-cancel').style.display = 'none';
+    }
+
+    function setStatus(msg, type = '') {
+      const el = document.getElementById('status-msg');
+      el.textContent = msg;
+      el.className = type;
+    }
+
+    // ── Token modal ──────────────────────────────────────────────
+    function openTokenModal() {
+      document.getElementById('token-modal').classList.add('open');
+      document.getElementById('token-input').focus();
+    }
+
+    function closeTokenModal() {
+      document.getElementById('token-modal').classList.remove('open');
+      document.getElementById('token-input').value = '';
+      pendingSave = false;
+    }
+
+    function confirmToken() {
+      const token = document.getElementById('token-input').value.trim();
+      if (!token) return;
+      localStorage.setItem('gh_token', token);
+      closeTokenModal();
+      if (pendingSave) commitToGitHub();
+    }
+
+    // ── Save flow ────────────────────────────────────────────────
+    function handleSave() {
+      const token = localStorage.getItem('gh_token');
+      if (!token) {
+        pendingSave = true;
+        openTokenModal();
+      } else {
+        commitToGitHub();
+      }
+    }
+
+    async function commitToGitHub() {
+      const token = localStorage.getItem('gh_token');
+      const saveBtn = document.getElementById('btn-save');
+      saveBtn.disabled = true;
+      setStatus('Saving…');
+
+      try {
+        // 1. Get current file SHA
+        const metaRes = await fetch(API_URL, {
+          headers: { Authorization: `token ${token}` }
+        });
+        if (metaRes.status === 401) {
+          localStorage.removeItem('gh_token');
+          setStatus('Token invalid — please re-enter it.', 'error');
+          saveBtn.disabled = false;
+          pendingSave = true;
+          openTokenModal();
+          return;
+        }
+        if (!metaRes.ok) throw new Error(`GitHub error ${metaRes.status}`);
+        const meta = await metaRes.json();
+
+        // 2. Snapshot the page with edits applied, editing UI removed
+        stopEditMode();
+        const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+        // 3. Commit
+        const encoded = btoa(unescape(encodeURIComponent(html)));
+        const putRes = await fetch(API_URL, {
+          method: 'PUT',
+          headers: {
+            Authorization: `token ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: 'Update notes',
+            content: encoded,
+            sha: meta.sha
+          })
+        });
+        if (!putRes.ok) throw new Error(`Commit failed ${putRes.status}`);
+
+        setStatus('Saved! Live in ~60 seconds.', 'success');
+      } catch (err) {
+        setStatus(`Error: ${err.message}`, 'error');
+        saveBtn.disabled = false;
+      }
+    }
+
+    // Allow Enter key to confirm token modal
+    document.getElementById('token-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') confirmToken();
+    });
+  </script>
 </body>
 </html>
