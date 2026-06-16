@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class Notes</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f5f0;
+      color: #1a1a1a;
+      padding: 40px 20px;
+    }
+
+    .card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 36px 40px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 28px;
+      color: #111;
+    }
+
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section h2 {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #888;
+      margin-bottom: 10px;
+    }
+
+    .section p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .grade-list {
+      list-style: none;
+    }
+
+    .grade-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    .grade-list li:last-child {
+      border-bottom: none;
+    }
+
+    .grade-list .label {
+      flex: 1;
+    }
+
+    .grade-list .pct {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #111;
+      margin-left: 16px;
+    }
+
+    .grade-list .note {
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    .total-bar {
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: #f5f5f0;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Class Notes</h1>
+
+    <div class="section">
+      <h2>Schedule</h2>
+      <p>2 classes per week &mdash; Monday &amp; Wednesday, 9:00 &ndash; 11:45 AM</p>
+      <p style="margin-top: 8px; font-size: 0.9rem; color: #666;">
+        The last hour is a group HW forum (counts as attendance).
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Grade Breakdown</h2>
+      <ul class="grade-list">
+        <li>
+          <div class="label">
+            HW Forum (group, in-class)
+            <div class="note">Counts as attendance</div>
+          </div>
+          <span class="pct">20%</span>
+        </li>
+        <li>
+          <div class="label">Weekly Reflection</div>
+          <span class="pct">10%</span>
+        </li>
+        <li>
+          <div class="label">
+            ExpertTA Homework
+            <div class="note">Weekly assignments, one per chapter</div>
+          </div>
+          <span class="pct">20%</span>
+        </li>
+        <li>
+          <div class="label">
+            Midterm 1
+            <div class="note">July 8 &mdash; in person</div>
+          </div>
+          <span class="pct">25%</span>
+        </li>
+        <li>
+          <div class="label">
+            Midterm 2
+            <div class="note">August 5 &mdash; in person</div>
+          </div>
+          <span class="pct">25%</span>
+        </li>
+      </ul>
+      <div class="total-bar">
+        <span>Total</span>
+        <span>100%</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
