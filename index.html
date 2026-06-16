@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Class Notes</title>
   <style>
     * {
@@ -233,19 +232,19 @@
       <h1>Class Notes</h1>
       <div>
         <div class="btn-group">
-          <button id="btn-edit" onclick="startEdit()">Edit</button>
-          <button id="btn-save" onclick="handleSave()">Save</button>
-          <button id="btn-cancel" onclick="cancelEdit()">Cancel</button>
+          <button id="btn-edit" onclick="startEdit()" style="display: inline-block;">Edit</button>
+          <button id="btn-save" onclick="handleSave()" style="display: none;" disabled="">Save</button>
+          <button id="btn-cancel" onclick="cancelEdit()" style="display: none;">Cancel</button>
         </div>
-        <div id="status-msg"></div>
+        <div id="status-msg" class="">Saving…</div>
       </div>
     </div>
 
     <div class="section">
       <h2>Schedule</h2>
-      <p data-editable>2 classes per week &mdash; Monday &amp; Wednesday, 9:00 &ndash; 11:45 AM</p>
-      <p data-editable style="margin-top: 8px; font-size: 0.9rem; color: #666;">
-        The last hour is a group HW forum (counts as attendance).
+      <p data-editable="">2 classes per week — Monday &amp; Wednesday, 9:00 – 11:45 AM</p>
+      <p data-editable="" style="margin-top: 8px; font-size: 0.9rem; color: #666;">
+        The last hour of the class is a group HW forum (counts as attendance).
       </p>
     </div>
 
@@ -254,35 +253,35 @@
       <ul class="grade-list">
         <li>
           <div class="label">
-            <span data-editable>HW Forum (group, in-class)</span>
-            <div class="note" data-editable>Counts as attendance</div>
+            <span data-editable="">HW Forum (group, in-class)</span>
+            <div class="note" data-editable="">Counts as attendance</div>
           </div>
-          <span class="pct" data-editable>20%</span>
+          <span class="pct" data-editable="">20%</span>
         </li>
         <li>
-          <div class="label"><span data-editable>Weekly Reflection</span></div>
-          <span class="pct" data-editable>10%</span>
-        </li>
-        <li>
-          <div class="label">
-            <span data-editable>ExpertTA Homework</span>
-            <div class="note" data-editable>Weekly assignments, one per chapter</div>
-          </div>
-          <span class="pct" data-editable>20%</span>
+          <div class="label"><span data-editable="">Weekly Reflection</span></div>
+          <span class="pct" data-editable="">10%</span>
         </li>
         <li>
           <div class="label">
-            <span data-editable>Midterm 1</span>
-            <div class="note" data-editable>July 8 &mdash; in person</div>
+            <span data-editable="">ExpertTA Homework</span>
+            <div class="note" data-editable="">Weekly assignments, one per chapter</div>
           </div>
-          <span class="pct" data-editable>25%</span>
+          <span class="pct" data-editable="">20%</span>
         </li>
         <li>
           <div class="label">
-            <span data-editable>Midterm 2</span>
-            <div class="note" data-editable>August 5 &mdash; in person</div>
+            <span data-editable="">Midterm 1</span>
+            <div class="note" data-editable="">July 8 — in person</div>
           </div>
-          <span class="pct" data-editable>25%</span>
+          <span class="pct" data-editable="">25%</span>
+        </li>
+        <li>
+          <div class="label">
+            <span data-editable="">Midterm 2</span>
+            <div class="note" data-editable="">August 5 — in person</div>
+          </div>
+          <span class="pct" data-editable="">25%</span>
         </li>
       </ul>
       <div class="total-bar">
@@ -293,14 +292,14 @@
   </div>
 
   <!-- GitHub token modal -->
-  <div id="token-modal">
-    <div class="modal-box">
+  <div id="token-modal" class="">
+    <div class="modal-box" data-protonpass-form="" style="">
       <h3>Enter your GitHub token</h3>
       <p>
         A personal access token with <strong>repo</strong> scope is needed to save changes.
         It will be stored only in this browser and never sent anywhere except GitHub.
       </p>
-      <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
+      <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="">
       <div class="modal-actions">
         <button id="btn-token-cancel" onclick="closeTokenModal()">Cancel</button>
         <button id="btn-token-confirm" onclick="confirmToken()">Save &amp; Continue</button>
@@ -442,5 +441,6 @@
       if (e.key === 'Enter') confirmToken();
     });
   </script>
-</body>
-</html>
+
+
+<div id="give-freely-root-kkkbiiikppgjdiebcabomlbidfodipjg" class="give-freely-root" data-extension-id="kkkbiiikppgjdiebcabomlbidfodipjg" data-extension-name="Substital: Add subtitles to videos and movies" style="display: block;"></div><protonpass-root-f9b5 data-protonpass-role="root" data-protonpass-theme="os" popover="manual"></protonpass-root-f9b5></body></html>
